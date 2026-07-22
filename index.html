@@ -336,12 +336,12 @@
 
     <!-- Category tabs -->
     <div class="tabs">
-        <div class="tab active" data-cat="world">🌍 World</div>
+        <div class="tab active" data-cat="all">📰 All</div>
+        <div class="tab" data-cat="world">🌍 World</div>
         <div class="tab" data-cat="tech">💻 Tech</div>
         <div class="tab" data-cat="business">📈 Business</div>
         <div class="tab" data-cat="science">🔬 Science</div>
         <div class="tab" data-cat="sports">⚽ Sports</div>
-        <div class="tab" data-cat="all">📰 All</div>
     </div>
 
     <!-- Main layout -->
@@ -470,7 +470,7 @@ async function loadFeed() {
             top.map(id => fetch(HN_ITEM(id)).then(r => r.json()).catch(() => null))
         );
         allStories = stories.filter(s => s && s.title);
-        filterByCategory("world");
+        renderFeed(allStories);
     } catch (e) {
         feedEl.innerHTML = '<div style="color:var(--text-dim);padding:2rem;text-align:center;">Unable to load live feed. Check your connection.</div>';
         feedCountEl.textContent = "offline";
@@ -513,13 +513,13 @@ function timeAgo(unix) {
     return Math.floor(diff / 86400) + "d ago";
 }
 
-// Category filter (filters HN stories by keyword heuristics)
+// Category filter — keywords use word-boundary matching to avoid false positives
 const CAT_KEYWORDS = {
-    tech: ["ai", "software", "code", "app", "tech", "google", "apple", "microsoft", "linux", "python", "javascript", "api", "cloud", "cyber", "data", "robot", "chip", "gpu", "openai", "gpt", "llm", "algorithm", "developer", "programming", "github"],
-    business: ["market", "stock", "startup", "fund", "billion", "deal", "ipo", "economy", "trade", "crypto", "bitcoin", "fed", "inflation", "acquisition", "revenue", "profit"],
-    science: ["science", "research", "study", "space", "nasa", "physics", "biology", "climate", "quantum", "dna", "mars", "telescope", "particle", "neuroscience", "math"],
-    sports: ["sport", "olympic", "football", "soccer", "basketball", "tennis", "f1", "racing", "athlete", "championship", "league", "tournament", "medal", "nba", "nfl", "mlb", "nhl", "world cup", "marathon", "boxing", "ufc", "golf", "cricket", "baseball", "runner", "coach", "stadium", "goal", "match", "game winner"],
-    world: ["world", "war", "ukraine", "russia", "china", "israel", "gaza", "iran", "trump", "biden", "eu", "nato", "un", "election", "crisis", "attack", "summit", "treaty", "sanction", "protest", "nuclear", "missile", "military", "government", "parliament", "congress", "senate", "president", "minister", "dictator", "regime", "coup", "rebel", "refugee", "border", "tariff", "diplomacy", "embassy", "ceasefire", "invasion", "occupation", "humanitarian", "united nations", "european union", "africa", "asia", "middle east", "europe", "america", "korea", "japan", "india", "pakistan", "afghanistan", "iraq", "syria", "lebanon", "yemen", "taiwan", "palestin", "germany", "france", "ukraine", "russian", "chinese"],
+    tech: ["ai", "software", "code", "app", "tech", "google", "apple", "microsoft", "linux", "python", "javascript", "api", "cloud", "cyber", "data", "robot", "chip", "gpu", "openai", "gpt", "llm", "algorithm", "developer", "programming", "github", "startup", "saas", "framework", "compiler", "database", "server", "kernel", "rust", "typescript", "react", "node"],
+    business: ["market", "stock", "startup", "fund", "billion", "deal", "ipo", "economy", "trade", "crypto", "bitcoin", "fed", "inflation", "acquisition", "revenue", "profit", "earnings", "investor", "valuation", "venture", "hedge", "layoff", "fired", "ceo", "cfo"],
+    science: ["science", "research", "study", "space", "nasa", "physics", "biology", "climate", "quantum", "dna", "mars", "telescope", "particle", "neuroscience", "math", "fossil", "species", "genome", "experiment", "astronomy", "chemistry", "evolution"],
+    sports: ["olympic", "football", "soccer", "basketball", "tennis", "formula 1", "athlete", "championship", "tournament", "medal", "nba", "nfl", "mlb", "nhl", "world cup", "marathon", "boxing", "ufc", "cricket", "baseball", "grand slam", "playoff", "super bowl"],
+    world: ["world", "war", "ukraine", "russia", "china", "israel", "gaza", "iran", "trump", "biden", "election", "crisis", "attack", "summit", "treaty", "sanction", "nuclear", "missile", "military", "government", "parliament", "congress", "senate", "president", "minister", "dictator", "regime", "coup", "rebel", "refugee", "border", "tariff", "diplomacy", "embassy", "ceasefire", "invasion", "occupation", "humanitarian", "africa", "asia", "middle east", "europe", "korea", "japan", "india", "pakistan", "afghanistan", "iraq", "syria", "lebanon", "yemen", "taiwan", "palestin", "germany", "france"],
 };
 function filterByCategory(cat) {
     if (cat === "all") {
@@ -527,13 +527,14 @@ function filterByCategory(cat) {
         return;
     }
     const kws = CAT_KEYWORDS[cat] || [];
+    const patterns = kws.map(k => new RegExp("\\b" + k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i"));
     const filtered = allStories.filter(s =>
-        kws.some(k => s.title.toLowerCase().includes(k))
+        patterns.some(p => p.test(s.title))
     );
     if (filtered.length) {
         renderFeed(filtered);
     } else {
-        feedEl.innerHTML = '<div style="color:var(--text-dim);padding:2.5rem 1rem;text-align:center;font-size:0.9rem;">No stories in this category right now.<br>The live feed is tech-focused (Hacker News). Try <strong>World</strong> or <strong>Tech</strong> for more results.</div>';
+        feedEl.innerHTML = '<div style="color:var(--text-dim);padding:2.5rem 1rem;text-align:center;font-size:0.9rem;">No stories in this category right now.<br>The live feed is tech-focused (Hacker News). Try <strong>All</strong> or <strong>Tech</strong> for more results.</div>';
         feedCountEl.textContent = "0 stories";
     }
 }
