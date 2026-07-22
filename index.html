@@ -470,7 +470,7 @@ async function loadFeed() {
             top.map(id => fetch(HN_ITEM(id)).then(r => r.json()).catch(() => null))
         );
         allStories = stories.filter(s => s && s.title);
-        renderFeed(allStories);
+        filterByCategory("world");
     } catch (e) {
         feedEl.innerHTML = '<div style="color:var(--text-dim);padding:2rem;text-align:center;">Unable to load live feed. Check your connection.</div>';
         feedCountEl.textContent = "offline";
@@ -485,15 +485,17 @@ function renderFeed(stories) {
         return;
     }
     stories.slice(0, 20).forEach(s => {
-        const host = s.url ? new URL(s.url).hostname.replace("www.", "") : "news.ycombinator.com";
+        let host = "news.ycombinator.com";
+        try { if (s.url) host = new URL(s.url).hostname.replace("www.", ""); } catch (e) {}
         const time = timeAgo(s.time);
+        const safeTitle = s.title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         const a = document.createElement("a");
         a.className = "story";
         a.href = s.url || `https://news.ycombinator.com/item?id=${s.id}`;
         a.target = "_blank";
         a.rel = "noopener";
         a.innerHTML = `
-            <div class="story-title">${s.title}</div>
+            <div class="story-title">${safeTitle}</div>
             <div class="story-meta">
                 <span class="score">▲ ${s.score}</span>
                 <span>${s.descendants || 0} comments</span>
@@ -517,27 +519,29 @@ const CAT_KEYWORDS = {
     business: ["market", "stock", "startup", "fund", "billion", "deal", "ipo", "economy", "trade", "crypto", "bitcoin", "fed", "inflation", "acquisition", "revenue", "profit"],
     science: ["science", "research", "study", "space", "nasa", "physics", "biology", "climate", "quantum", "dna", "mars", "telescope", "particle", "neuroscience", "math"],
     sports: ["sport", "olympic", "football", "soccer", "basketball", "tennis", "f1", "racing", "athlete", "championship", "league", "tournament", "medal", "nba", "nfl", "mlb", "nhl", "world cup", "marathon", "boxing", "ufc", "golf", "cricket", "baseball", "runner", "coach", "stadium", "goal", "match", "game winner"],
-    world: ["world", "war", "ukraine", "russia", "china", "israel", "gaza", "iran", "trump", "biden", "eu", "nato", "un", "election", "crisis", "attack", "summit", "treaty", "sanction", "protest"],
+    world: ["world", "war", "ukraine", "russia", "china", "israel", "gaza", "iran", "trump", "biden", "eu", "nato", "un", "election", "crisis", "attack", "summit", "treaty", "sanction", "protest", "nuclear", "missile", "military", "government", "parliament", "congress", "senate", "president", "minister", "dictator", "regime", "coup", "rebel", "refugee", "border", "tariff", "diplomacy", "embassy", "ceasefire", "invasion", "occupation", "humanitarian", "united nations", "european union", "africa", "asia", "middle east", "europe", "america", "korea", "japan", "india", "pakistan", "afghanistan", "iraq", "syria", "lebanon", "yemen", "taiwan", "palestin", "germany", "france", "ukraine", "russian", "chinese"],
 };
+function filterByCategory(cat) {
+    if (cat === "all") {
+        renderFeed(allStories);
+        return;
+    }
+    const kws = CAT_KEYWORDS[cat] || [];
+    const filtered = allStories.filter(s =>
+        kws.some(k => s.title.toLowerCase().includes(k))
+    );
+    if (filtered.length) {
+        renderFeed(filtered);
+    } else {
+        feedEl.innerHTML = '<div style="color:var(--text-dim);padding:2.5rem 1rem;text-align:center;font-size:0.9rem;">No stories in this category right now.<br>The live feed is tech-focused (Hacker News). Try <strong>World</strong> or <strong>Tech</strong> for more results.</div>';
+        feedCountEl.textContent = "0 stories";
+    }
+}
 document.querySelectorAll(".tab").forEach(t => {
     t.onclick = () => {
         document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
         t.classList.add("active");
-        const cat = t.dataset.cat;
-        if (cat === "all") {
-            renderFeed(allStories);
-        } else {
-            const kws = CAT_KEYWORDS[cat] || [];
-            const filtered = allStories.filter(s =>
-                kws.some(k => s.title.toLowerCase().includes(k))
-            );
-            if (filtered.length) {
-                renderFeed(filtered);
-            } else {
-                feedEl.innerHTML = '<div style="color:var(--text-dim);padding:2.5rem 1rem;text-align:center;font-size:0.9rem;">No stories in this category right now.<br>The live feed is tech-focused (Hacker News). Try <strong>World</strong> or <strong>Tech</strong> for more results.</div>';
-                feedCountEl.textContent = "0 stories";
-            }
-        }
+        filterByCategory(t.dataset.cat);
     };
 });
 
