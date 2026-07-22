@@ -172,6 +172,15 @@
         }
         .quote span { color: var(--accent-hover); }
 
+        .stats {
+            text-align: center;
+            margin: 1.5rem 0;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+        .stats strong { color: var(--accent-hover); font-variant-numeric: tabular-nums; }
+        .stat-divider { margin: 0 0.75rem; opacity: 0.4; }
+
         footer {
             text-align: center;
             margin-top: 2rem;
@@ -223,6 +232,13 @@
 
     <!-- 一言 -->
     <div class="quote" id="quote">加载中…</div>
+
+    <!-- 访问统计 -->
+    <div class="stats">
+        <span class="stat-item">👁️ 本页浏览 <strong id="pv">-</strong></span>
+        <span class="stat-divider">|</span>
+        <span class="stat-item">👤 访客 <strong id="uv">-</strong></span>
+    </div>
 
     <footer>
         <p>
@@ -325,6 +341,34 @@ fetch("https://v1.hitokoto.cn/?c=d&c=i&c=k", { signal: quoteCtrl.signal })
         clearTimeout(quoteTimer);
         document.getElementById("quote").textContent = "热点常新，理性吃瓜。";
     });
+
+// 访问统计（CountAPI，免注册）
+const NS = "jimmyllll-hotsearch";
+const pvEl = document.getElementById("pv");
+const uvEl = document.getElementById("uv");
+
+// PV：每次访问都 +1
+fetch(`https://api.counterapi.dev/v1/${NS}/pv/up`)
+    .then(r => r.json())
+    .then(d => { pvEl.textContent = (d.count || 0).toLocaleString(); })
+    .catch(() => { pvEl.textContent = "N/A"; });
+
+// UV：用 localStorage 去重，每个浏览器只计一次
+const uvKey = "hotsearch_uv_counted";
+if (!localStorage.getItem(uvKey)) {
+    fetch(`https://api.counterapi.dev/v1/${NS}/uv/up`)
+        .then(r => r.json())
+        .then(d => {
+            uvEl.textContent = (d.count || 0).toLocaleString();
+            localStorage.setItem(uvKey, "1");
+        })
+        .catch(() => { uvEl.textContent = "N/A"; });
+} else {
+    fetch(`https://api.counterapi.dev/v1/${NS}/uv`)
+        .then(r => r.json())
+        .then(d => { uvEl.textContent = (d.count || 0).toLocaleString(); })
+        .catch(() => { uvEl.textContent = "N/A"; });
+}
 </script>
 </body>
 </html>
