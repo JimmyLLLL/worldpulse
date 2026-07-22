@@ -516,7 +516,7 @@ const CAT_KEYWORDS = {
     tech: ["ai", "software", "code", "app", "tech", "google", "apple", "microsoft", "linux", "python", "javascript", "api", "cloud", "cyber", "data", "robot", "chip", "gpu", "openai", "gpt", "llm", "algorithm", "developer", "programming", "github"],
     business: ["market", "stock", "startup", "fund", "billion", "deal", "ipo", "economy", "trade", "crypto", "bitcoin", "fed", "inflation", "acquisition", "revenue", "profit"],
     science: ["science", "research", "study", "space", "nasa", "physics", "biology", "climate", "quantum", "dna", "mars", "telescope", "particle", "neuroscience", "math"],
-    sports: ["sport", "olympic", "football", "soccer", "basketball", "tennis", "f1", "racing", "athlete", "championship", "league", "tournament", "medal"],
+    sports: ["sport", "olympic", "football", "soccer", "basketball", "tennis", "f1", "racing", "athlete", "championship", "league", "tournament", "medal", "nba", "nfl", "mlb", "nhl", "world cup", "marathon", "boxing", "ufc", "golf", "cricket", "baseball", "runner", "coach", "stadium", "goal", "match", "game winner"],
     world: ["world", "war", "ukraine", "russia", "china", "israel", "gaza", "iran", "trump", "biden", "eu", "nato", "un", "election", "crisis", "attack", "summit", "treaty", "sanction", "protest"],
 };
 document.querySelectorAll(".tab").forEach(t => {
@@ -531,7 +531,12 @@ document.querySelectorAll(".tab").forEach(t => {
             const filtered = allStories.filter(s =>
                 kws.some(k => s.title.toLowerCase().includes(k))
             );
-            renderFeed(filtered.length ? filtered : allStories);
+            if (filtered.length) {
+                renderFeed(filtered);
+            } else {
+                feedEl.innerHTML = '<div style="color:var(--text-dim);padding:2.5rem 1rem;text-align:center;font-size:0.9rem;">No stories in this category right now.<br>The live feed is tech-focused (Hacker News). Try <strong>World</strong> or <strong>Tech</strong> for more results.</div>';
+                feedCountEl.textContent = "0 stories";
+            }
         }
     };
 });
