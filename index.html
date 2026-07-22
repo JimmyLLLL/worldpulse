@@ -311,14 +311,18 @@ function tick() {
 tick();
 setInterval(tick, 1000);
 
-// 一言
-fetch("https://v1.hitokoto.cn/?c=d&c=i&c=k")
+// 一言（带 3 秒超时，避免卡在"加载中"）
+const quoteCtrl = new AbortController();
+const quoteTimer = setTimeout(() => quoteCtrl.abort(), 3000);
+fetch("https://v1.hitokoto.cn/?c=d&c=i&c=k", { signal: quoteCtrl.signal })
     .then(r => r.json())
     .then(d => {
+        clearTimeout(quoteTimer);
         document.getElementById("quote").innerHTML =
             `「${d.hitokoto}」 — <span>${d.from || "佚名"}</span>`;
     })
     .catch(() => {
+        clearTimeout(quoteTimer);
         document.getElementById("quote").textContent = "热点常新，理性吃瓜。";
     });
 </script>
