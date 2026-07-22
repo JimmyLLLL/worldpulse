@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jimmyllll.github.io/hello-github-pages/sitemap.xml
+Sitemap: https://jimmyllll.github.io/worldpulse/sitemap.xml
