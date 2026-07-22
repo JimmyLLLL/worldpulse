@@ -3,19 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="WorldPulse — Live international news dashboard. Real-time headlines, world clocks, and trending stories from top global outlets.">
-    <meta name="keywords" content="international news, world news, breaking news, global headlines, trending news">
-    <meta property="og:title" content="WorldPulse · Live International News">
-    <meta property="og:description" content="Real-time world headlines, trending stories, and global news outlets in one dashboard.">
-    <title>WorldPulse · Live International News Dashboard</title>
+    <meta name="theme-color" content="#0a0b0f">
+    <meta name="description" content="WorldPulse — Live international news dashboard. Real-time headlines, world clocks, and trending stories from top global outlets like Reuters, BBC, AP, Bloomberg, and more.">
+    <meta name="keywords" content="international news, world news, breaking news, global headlines, trending news, world pulse, live news dashboard">
+    <meta name="author" content="WorldPulse">
+    <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://jimmyllll.github.io/hello-github-pages/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <meta name="apple-mobile-web-app-title" content="WorldPulse">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="WorldPulse">
+    <meta property="og:title" content="WorldPulse · Live International News Dashboard">
+    <meta property="og:description" content="Real-time world headlines, trending stories, world clocks, and 16+ top global news outlets in one clean dashboard.">
+    <meta property="og:url" content="https://jimmyllll.github.io/hello-github-pages/">
+    <meta property="og:image" content="https://jimmyllll.github.io/hello-github-pages/favicon.svg">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="WorldPulse · Live International News">
+    <meta name="twitter:description" content="Real-time world headlines, trending stories, and global news outlets in one dashboard.">
+    <meta name="twitter:image" content="https://jimmyllll.github.io/hello-github-pages/favicon.svg">
+
+    <title>WorldPulse · Live International News Dashboard</title>
+
+    <!-- Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "WorldPulse",
+      "alternateName": "WorldPulse News",
       "url": "https://jimmyllll.github.io/hello-github-pages/",
-      "description": "Live international news dashboard with real-time headlines and world clocks"
+      "description": "Live international news dashboard with real-time headlines, world clocks, and top global outlets",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://jimmyllll.github.io/hello-github-pages/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "WorldPulse",
+        "url": "https://jimmyllll.github.io/hello-github-pages/"
+      }
     }
     </script>
     <style>
@@ -389,14 +427,14 @@ const OUTLETS = [
     { name: "Financial Times", region: "UK", badge: "FT", color: "#991901", url: "https://www.ft.com/world" },
     { name: "The Economist", region: "UK", badge: "E", color: "#e3120b", url: "https://www.economist.com/" },
     { name: "Nikkei Asia", region: "Japan", badge: "N", color: "#bf0d3e", url: "https://asia.nikkei.com/" },
-    { name: "South China Morning Post", region: "Hong Kong", badge: "SCMP", color: "#ffde00", url: "https://www.scmp.com/news/world" },
+    { name: "South China Morning Post", region: "Hong Kong", badge: "SCMP", color: "#d4a017", url: "https://www.scmp.com/news/world" },
     { name: "Le Monde", region: "France", badge: "LM", color: "#0066cc", url: "https://www.lemonde.fr/en/" },
     { name: "Deutsche Welle", region: "Germany", badge: "DW", color: "#002d5b", url: "https://www.dw.com/en/top-stories/s-1439" },
     { name: "RT News", region: "Russia", badge: "RT", color: "#1a8c34", url: "https://www.rt.com/news/" },
     { name: "Times of India", region: "India", badge: "TOI", color: "#cf1b27", url: "https://timesofindia.indiatimes.com/world" },
 ];
 const outletsEl = document.getElementById("outlets");
-function renderOutlets(cat) {
+function renderOutlets() {
     outletsEl.innerHTML = "";
     OUTLETS.forEach(o => {
         const a = document.createElement("a");
@@ -413,7 +451,7 @@ function renderOutlets(cat) {
         outletsEl.appendChild(a);
     });
 }
-renderOutlets("world");
+renderOutlets();
 
 // ===== Live feed (Hacker News API) =====
 const HN_TOP = "https://hacker-news.firebaseio.com/v0/topstories.json";
