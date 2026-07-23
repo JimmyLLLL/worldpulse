@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="preconnect" href="https://api.counterapi.dev">
+    <link rel="dns-prefetch" href="https://api.counterapi.dev">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0a0b0f">
     <meta name="description" content="WorldPulse — Live international news dashboard. Real-time headlines, world clocks, and trending stories from top global outlets like Reuters, BBC, AP, Bloomberg, and more.">
@@ -304,7 +308,7 @@
 <body>
 
 <!-- Top bar -->
-<div class="topbar">
+<header class="topbar">
     <div class="brand">
         <span class="live-dot"></span>
         WorldPulse
@@ -315,12 +319,12 @@
         <a href="privacy.html">Privacy</a>
         <a href="contact.html">Contact</a>
     </div>
-</div>
+</header>
 
 <!-- World clocks -->
 <div class="clocks" id="clocks"></div>
 
-<div class="container">
+<main class="container">
     <!-- Search -->
     <div class="search-wrap">
         <select id="engine">
@@ -369,6 +373,26 @@
         </div>
     </div>
 
+    <!-- Static SEO content for crawlers -->
+    <section style="max-width:700px;margin:2rem auto;color:var(--text-dim);font-size:0.85rem;line-height:1.7;padding:0 1rem;">
+        <h1 style="font-size:1.4rem;color:var(--text);margin-bottom:0.5rem;">WorldPulse — Live International News Dashboard</h1>
+        <p>WorldPulse brings you <strong>real-time international news headlines</strong> from top global outlets in one clean dashboard. Stay informed about world events, breaking news, technology, business, science, and sports — all in one place, updated continuously.</p>
+        <h2 style="font-size:1rem;color:var(--accent-hover);margin-top:1.25rem;">Live News Feed</h2>
+        <p>Our live feed pulls the top 30 trending stories from the Hacker News API every 5 minutes, ensuring you always see the latest discussions and breaking stories. Each story shows its score, comment count, source domain, and time posted — click any headline to read the full article at its original source.</p>
+        <h2 style="font-size:1rem;color:var(--accent-hover);margin-top:1.25rem;">World Clocks</h2>
+        <p>Track time across major global cities — New York, London, Berlin, Dubai, Beijing, Tokyo, and Sydney — with live updating clocks. Perfect for following international news across time zones and knowing when markets open.</p>
+        <h2 style="font-size:1rem;color:var(--accent-hover);margin-top:1.25rem;">Top Global News Outlets</h2>
+        <p>One-tap access to 16 leading international news sources: <strong>Reuters, BBC News, Associated Press, Al Jazeera, Bloomberg, The Guardian, The New York Times, Wall Street Journal, Financial Times, The Economist, Nikkei Asia, South China Morning Post, Le Monde, Deutsche Welle, RT News,</strong> and <strong>Times of India</strong>. Each outlet links directly to their world news section.</p>
+        <h2 style="font-size:1rem;color:var(--accent-hover);margin-top:1.25rem;">Smart Search</h2>
+        <p>Search world news across multiple engines without leaving the page — Google News, Google, Bing News, DuckDuckGo, Reuters, and BBC. Switch engines with one click and get instant results.</p>
+        <h2 style="font-size:1rem;color:var(--accent-hover);margin-top:1.25rem;">Category Filters</h2>
+        <p>Filter the live feed by category: <strong>World</strong> (geopolitics, elections, conflicts), <strong>Tech</strong> (AI, software, startups), <strong>Business</strong> (markets, crypto, economy), <strong>Science</strong> (research, space, climate), and <strong>Sports</strong> (results, championships). Our smart keyword matching ensures relevant stories appear in each category.</p>
+        <h2 style="font-size:1rem;color:var(--accent-hover);margin-top:1.25rem;">Why Use WorldPulse?</h2>
+        <p>Instead of visiting a dozen different news sites, WorldPulse aggregates everything into one fast-loading, ad-light dashboard. No account needed, no tracking, works on any device. Bookmark this page for your daily news check — the feed auto-refreshes so there's always something new.</p>
+        <h2 style="font-size:1rem;color:var(--accent-hover);margin-top:1.25rem;">Stay Updated on Global Events</h2>
+        <p>From geopolitical developments and elections to technology breakthroughs and market movements, WorldPulse covers the full spectrum of international news. Whether you're tracking the latest from Ukraine, China, the Middle East, or Silicon Valley, our dashboard keeps you informed in seconds.</p>
+    </section>
+
     <!-- Stats -->
     <div class="stats">
         👁️ Views <strong id="pv">-</strong>
@@ -385,7 +409,10 @@
         </p>
         <p style="margin-top:0.4rem;">WorldPulse © 2026 · Headlines via Hacker News API & top global outlets</p>
         <p style="margin-top:0.4rem; font-size:0.68rem; opacity:0.55; max-width:680px; margin-left:auto; margin-right:auto;">WorldPulse is an independent aggregator. All trademarks and logos belong to their respective owners. We link to original sources and do not host or reproduce any content. This site is not affiliated with or endorsed by any of the linked outlets.</p>
-    </footer>
+    
+    <div style="margin-top:0.6rem;font-size:0.72rem;opacity:0.6;">More: <a href="https://jimmyllll.github.io/brick-breaker/">Brick Breaker Game</a> · <a href="https://jimmyllll.github.io/web-tools/">WebTools — Free Utilities</a> · <a href="https://jimmyllll.github.io/fun-tests/">FunTests — Quizzes</a> · <a href="https://jimmyllll.github.io/wheel-spinner/">Wheel Spinner</a> · <a href="https://jimmyllll.github.io/game-2048/">2048 Game</a> · <a href="https://jimmyllll.github.io/bmi-calculator/">BMI Calculator</a></div>
+</footer>
+</main>
 </div>
 
 <script>
