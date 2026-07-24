@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jimmyllll.github.io/sitemap.xml
+Sitemap: https://jimmywithfiona.com/worldpulse/sitemap.xml
