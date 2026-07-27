@@ -132,6 +132,7 @@
             background: var(--bg-2);
             border-bottom: 1px solid var(--border);
             overflow-x: auto;
+            max-width: 100%;
             scrollbar-width: none;
         }
         .clocks::-webkit-scrollbar { display: none; }
@@ -150,6 +151,7 @@
         /* ===== Search ===== */
         .search-wrap {
             display: flex;
+            flex-wrap: wrap;
             gap: 0.5rem;
             margin-bottom: 1.25rem;
         }
