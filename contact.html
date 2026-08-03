@@ -23,11 +23,11 @@
     <meta property="og:title" content="Contact · WorldPulse">
     <meta property="og:description" content="Contact WorldPulse — send feedback, report issues, or suggest news outlets.">
     <meta property="og:url" content="https://jimmywithfiona.com/worldpulse/contact.html">
-    <meta property="og:image" content="https://jimmywithfiona.com/hello-github-pages/og.png">
+    <meta property="og:image" content="https://jimmywithfiona.com/worldpulse/og.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Contact · WorldPulse">
     <meta name="twitter:description" content="Contact WorldPulse — send feedback, report issues, or suggest news outlets.">
-    <meta name="twitter:image" content="https://jimmywithfiona.com/hello-github-pages/og.png">
+    <meta name="twitter:image" content="https://jimmywithfiona.com/worldpulse/og.png">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1840337371416691" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
 
@@ -175,5 +175,35 @@
 
     <div style="margin-top:0.6rem;font-size:0.72rem;opacity:0.6;"><a href="https://jimmywithfiona.com/">Home</a> · More: <a href="https://jimmywithfiona.com/brick-breaker/">Brick Breaker Game</a> · <a href="https://jimmywithfiona.com/mortgage-calculator/">Mortgage Calculator</a> · <a href="https://jimmywithfiona.com/fun-tests/">FunTests — Quizzes</a> · <a href="https://jimmywithfiona.com/wheel-spinner/">Wheel Spinner</a> · <a href="https://jimmywithfiona.com/game-2048/">2048 Game</a> · <a href="https://jimmywithfiona.com/bmi-calculator/">BMI Calculator</a></div>
 </footer>
+<!-- I18N-FULL -->
+<script>
+(function(){
+var lang=(navigator.language||navigator.userLanguage||"en").toLowerCase();
+if(!lang.startsWith("zh"))return;
+var ZH={"About":"关于","Privacy":"隐私","Contact":"联系","Contact Us":"联系我们","Have feedback, found a broken link, or want to suggest a new outlet? We'd love to hear from you.":"有反馈、发现失效链接，或想推荐新的媒体？我们很乐意收到您的来信。","GitHub (Recommended)":"GitHub（推荐）","Opening an issue on our GitHub repository is the fastest way to reach us — we get notified instantly.":"在我们的 GitHub 仓库中提交 Issue 是联系我们最快的方式——我们会立即收到通知。","Open an Issue":"提交 Issue","Email":"电子邮件","You can also reach us by email:":"您也可以通过电子邮件联系我们：","FAQ":"常见问题","An outlet link isn't working?":"媒体链接无法访问？","The publisher may have changed their URL. Let us know via an issue and we'll update it.":"出版商可能更改了其 URL。请通过 Issue 告知我们，我们会进行更新。","Want to add an outlet?":"想要添加新媒体？","Tell us the name and the link to their world news section.":"告诉我们媒体名称及其世界新闻版块的链接。","The live feed is empty?":"实时信息流为空？","This usually means the Hacker News API is temporarily unreachable. It will auto-retry in 5 minutes.":"这通常意味着 Hacker News API 暂时无法访问。它将在 5 分钟后自动重试。","Home":"首页","· More:":"· 更多：","Brick Breaker Game":"打砖块游戏","Mortgage Calculator":"房贷计算器","FunTests — Quizzes":"FunTests — 测验","Wheel Spinner":"转盘抽奖","2048 Game":"2048 游戏","BMI Calculator":"BMI 计算器"};
+function walk(node){
+if(node.nodeType===3){
+var t=node.textContent,k=t.trim();
+if(k&&ZH[k]){node.textContent=t.replace(k,ZH[k])}
+}else if(node.nodeType===1&&node.tagName!=="SCRIPT"&&node.tagName!=="STYLE"&&node.tagName!=="NOSCRIPT"){
+if(node.childNodes.length>1){
+var full=node.textContent.trim();
+if(ZH[full]){node.textContent=ZH[full];return}
+}
+for(var i=0;i<node.childNodes.length;i++){walk(node.childNodes[i])}
+}
+}
+walk(document.body);
+document.documentElement.lang="zh-CN";
+var mo=new MutationObserver(function(muts){
+muts.forEach(function(m){
+if(m.type==="childList"){m.addedNodes.forEach(function(n){walk(n)})}
+else if(m.type==="characterData"){walk(m.target)}
+});
+});
+mo.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+</script>
+<!-- /I18N-FULL -->
 </body>
 </html>

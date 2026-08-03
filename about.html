@@ -23,11 +23,11 @@
     <meta property="og:title" content="About · WorldPulse">
     <meta property="og:description" content="About WorldPulse — a live international news dashboard aggregating global headlines and top outlets.">
     <meta property="og:url" content="https://jimmywithfiona.com/worldpulse/about.html">
-    <meta property="og:image" content="https://jimmywithfiona.com/hello-github-pages/og.png">
+    <meta property="og:image" content="https://jimmywithfiona.com/worldpulse/og.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="About · WorldPulse">
     <meta name="twitter:description" content="About WorldPulse — a live international news dashboard aggregating global headlines and top outlets.">
-    <meta name="twitter:image" content="https://jimmywithfiona.com/hello-github-pages/og.png">
+    <meta name="twitter:image" content="https://jimmywithfiona.com/worldpulse/og.png">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1840337371416691" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
 
@@ -174,5 +174,35 @@
 
     <div style="margin-top:0.6rem;font-size:0.72rem;opacity:0.6;"><a href="https://jimmywithfiona.com/">Home</a> · More: <a href="https://jimmywithfiona.com/brick-breaker/">Brick Breaker Game</a> · <a href="https://jimmywithfiona.com/mortgage-calculator/">Mortgage Calculator</a> · <a href="https://jimmywithfiona.com/fun-tests/">FunTests — Quizzes</a> · <a href="https://jimmywithfiona.com/wheel-spinner/">Wheel Spinner</a> · <a href="https://jimmywithfiona.com/game-2048/">2048 Game</a> · <a href="https://jimmywithfiona.com/bmi-calculator/">BMI Calculator</a></div>
 </footer>
+<!-- I18N-FULL -->
+<script>
+(function(){
+var lang=(navigator.language||navigator.userLanguage||"en").toLowerCase();
+if(!lang.startsWith("zh"))return;
+var ZH={"About":"关于","Privacy":"隐私","Contact":"联系","About WorldPulse":"关于 WorldPulse","WorldPulse is a live international news dashboard that brings real-time headlines, world clocks, and top global news outlets together in one clean, distraction-free interface. No noise, no clutter — just the pulse of the world.":"WorldPulse 是一个实时国际新闻仪表盘，将实时头条、世界时钟和全球顶级新闻媒体汇聚于一个简洁、无干扰的界面中。没有噪音，没有杂乱——只有世界的脉搏。","Why we built this":"我们为什么开发这个","Staying informed about global events shouldn't mean jumping between a dozen tabs and apps. WorldPulse aggregates the most important sources into a single dashboard so you can scan the world's headlines in seconds and dive deeper wherever you choose.":"了解全球动态不应意味着在十几个标签页和应用之间来回切换。WorldPulse 将最重要的来源聚合到一个仪表盘中，让您可以在几秒内浏览世界头条，并随时深入了解您感兴趣的内容。","What you get":"您将获得","Live Feed":"实时信息流",": Real-time top stories fetched from the Hacker News API, auto-refreshing every 5 minutes.":"：从 Hacker News API 获取的实时热门报道，每 5 分钟自动刷新。","World Clocks":"世界时钟",": Live time across New York, London, Berlin, Dubai, Beijing, Tokyo, and Sydney.":"：New York、London、Berlin、Dubai、Beijing、Tokyo 和 Sydney 的实时时间。","Top Outlets":"顶级媒体",": One-tap access to 16 leading international news sources — Reuters, BBC, AP, Al Jazeera, Bloomberg, and more.":"：一键访问 16 家国际领先新闻来源——Reuters、BBC、AP、Al Jazeera、Bloomberg 等。","Smart Search":"智能搜索",": Search across Google News, Bing, DuckDuckGo, Reuters, and BBC without leaving the page.":"：无需离开页面即可跨 Google News、Bing、DuckDuckGo、Reuters 和 BBC 搜索。","Category Filters":"分类筛选",": Quickly drill into World, Tech, Business, Science, or Sports.":"：快速筛选世界、科技、商业、科学或体育分类。","How it works":"工作原理","This is a fully static site hosted on GitHub Pages. The live feed is powered by the public Hacker News API and fetched directly in your browser — no server, no tracking, no data collection. Outlet links take you directly to the respective publishers.":"这是一个完全静态的网站，托管在 GitHub Pages 上。实时信息流由公开的 Hacker News API 驱动，直接在您的浏览器中获取数据——无服务器、无追踪、无数据收集。媒体链接将直接带您前往相应的出版商。","Feedback":"反馈","WorldPulse is actively evolving. If you'd like to suggest an outlet, report a broken link, or share an idea, please reach out via the":"WorldPulse 正在不断改进。如果您想推荐媒体、报告失效链接或分享想法，请通过","contact page":"联系页面","Back to Live Feed →":"返回实时信息流 →","Home":"首页","· More:":"· 更多：","Brick Breaker Game":"打砖块游戏","Mortgage Calculator":"房贷计算器","FunTests — Quizzes":"FunTests — 测验","Wheel Spinner":"转盘抽奖","2048 Game":"2048 游戏","BMI Calculator":"BMI 计算器"};
+function walk(node){
+if(node.nodeType===3){
+var t=node.textContent,k=t.trim();
+if(k&&ZH[k]){node.textContent=t.replace(k,ZH[k])}
+}else if(node.nodeType===1&&node.tagName!=="SCRIPT"&&node.tagName!=="STYLE"&&node.tagName!=="NOSCRIPT"){
+if(node.childNodes.length>1){
+var full=node.textContent.trim();
+if(ZH[full]){node.textContent=ZH[full];return}
+}
+for(var i=0;i<node.childNodes.length;i++){walk(node.childNodes[i])}
+}
+}
+walk(document.body);
+document.documentElement.lang="zh-CN";
+var mo=new MutationObserver(function(muts){
+muts.forEach(function(m){
+if(m.type==="childList"){m.addedNodes.forEach(function(n){walk(n)})}
+else if(m.type==="characterData"){walk(m.target)}
+});
+});
+mo.observe(document.body,{childList:true,subtree:true,characterData:true});
+})();
+</script>
+<!-- /I18N-FULL -->
 </body>
 </html>
